@@ -151,8 +151,8 @@ namespace MaterialDashSkin
         private void Form2_Load(object sender, EventArgs e)
         {
             // Set text from settings
-            materialComboBox1.Text = Settings.Default["baudrate0"].ToString();
-            materialComboBox2.Text = Settings.Default["comport0"].ToString();
+            materialComboBoxsensor1port.Text = Settings.Default["baudrate0"].ToString();
+            materialComboBoxsensor1baud.Text = Settings.Default["comport0"].ToString();
 
             // Get serial port name
             String[] ports = SerialPort.GetPortNames();
@@ -160,7 +160,7 @@ namespace MaterialDashSkin
             // Populate listbox with serial port name
             for (int i = 0; i <= ports.Length - 1; i++)
             {
-                materialComboBox1.Items.Add(ports[i]);
+                materialComboBoxsensor1port.Items.Add(ports[i]);
             }
 
             // Special tricks to initialise graph
@@ -197,8 +197,8 @@ namespace MaterialDashSkin
         private void materialButton2_Click(object sender, EventArgs e)
         {
             // Set settings from form
-            Settings.Default["comport0"] = materialComboBox1.Text;
-            Settings.Default["baudrate0"] = materialComboBox2.Text;
+            Settings.Default["comport0"] = materialComboBoxsensor1port.Text;
+            Settings.Default["baudrate0"] = materialComboBoxsensor1baud.Text;
             Settings.Default.Save();
         }
 
@@ -233,14 +233,15 @@ namespace MaterialDashSkin
             try
             {
                 String mySerialData0 = (string)ComPort0.ReadLine();
-                label2.Text = mySerialData0;
+                labelsensor1value.Text = mySerialData0;
                 chart1.Series["Series1"].Points.AddXY("", yValue: mySerialData0);
-            } catch { }
-            
+            }
+            catch { }
+
             try
             {
                 String mySerialData1 = (string)ComPort1.ReadLine();
-                label3.Text = mySerialData1;
+                labelsensor2value.Text = mySerialData1;
                 chart1.Series["Series2"].Points.AddXY("", yValue: mySerialData1);
             }
             catch { }
@@ -248,7 +249,7 @@ namespace MaterialDashSkin
             try
             {
                 String mySerialData2 = (string)ComPort2.ReadLine();
-                label6.Text = mySerialData2;
+                labelsensor3value.Text = mySerialData2;
                 chart1.Series["Series3"].Points.AddXY("", yValue: mySerialData2);
             }
             catch { }
@@ -256,7 +257,7 @@ namespace MaterialDashSkin
             try
             {
                 String mySerialData3 = (string)ComPort3.ReadLine();
-                label8.Text = mySerialData3;
+                labelsensor4value.Text = mySerialData3;
                 chart1.Series["Series4"].Points.AddXY("", yValue: mySerialData3);
             }
             catch { }
@@ -269,7 +270,7 @@ namespace MaterialDashSkin
             if (pointCounter1 > 100) { chart1.Series["Series2"].Points.RemoveAt(0); }
             if (pointCounter2 > 100) { chart1.Series["Series3"].Points.RemoveAt(0); }
             if (pointCounter3 > 100) { chart1.Series["Series4"].Points.RemoveAt(0); }
-            
+
 
 
             // Redraw the graph
@@ -277,12 +278,8 @@ namespace MaterialDashSkin
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-
-        private void materialButton1_Click_1(object sender, EventArgs e)
+        private void materialButtongraphplaypause_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled)
             {
@@ -294,9 +291,125 @@ namespace MaterialDashSkin
             }
         }
 
-        private void chart1_Click(object sender, EventArgs e)
+        private void materialButtonsensor1_Click(object sender, EventArgs e)
         {
+            if (ComPort0.IsOpen)
+            {
+                try
+                {
+                    ComPort0.Close();
+                    materialButtonsensor1.Text = "Disconnect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                try
+                {
+                    ComPort0.Open();
+                    materialButtonsensor1.Text = "Connect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            }
+
+            private void materialButtonsensor2_Click(object sender, EventArgs e)
+            {
+                if (ComPort1.IsOpen)
+                {
+                try
+                {
+                    ComPort1.Close();
+                    materialButtonsensor1.Text = "Disconnect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+                else
+                {
+                try
+                {
+                    ComPort1.Open();
+                    materialButtonsensor1.Text = "Connect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            }
+
+            private void materialButtonsensor3_Click(object sender, EventArgs e)
+            {
+                if (ComPort2.IsOpen)
+                {
+                try
+                {
+                    ComPort2.Close();
+                    materialButtonsensor1.Text = "Disconnect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+                else
+                {
+                try
+                {
+                    ComPort2.Open();
+                    materialButtonsensor1.Text = "Connect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            }
+
+            private void materialButtonsensor4_Click(object sender, EventArgs e)
+            {
+                if (ComPort3.IsOpen)
+                {
+                try
+                {
+                    ComPort3.Close();
+                    materialButtonsensor1.Text = "Disconnect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+                else
+                {
+                try
+                {
+                    ComPort3.Open();
+                    materialButtonsensor1.Text = "Connect";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            }
 
         }
     }
-}
