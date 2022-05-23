@@ -319,12 +319,12 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            }
+        }
 
-            private void materialButtonsensor2_Click(object sender, EventArgs e)
+        private void materialButtonsensor2_Click(object sender, EventArgs e)
+        {
+            if (ComPort1.IsOpen)
             {
-                if (ComPort1.IsOpen)
-                {
                 try
                 {
                     ComPort1.Close();
@@ -336,8 +336,8 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-                else
-                {
+            else
+            {
                 try
                 {
                     ComPort1.Open();
@@ -349,12 +349,12 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            }
+        }
 
-            private void materialButtonsensor3_Click(object sender, EventArgs e)
+        private void materialButtonsensor3_Click(object sender, EventArgs e)
+        {
+            if (ComPort2.IsOpen)
             {
-                if (ComPort2.IsOpen)
-                {
                 try
                 {
                     ComPort2.Close();
@@ -366,8 +366,8 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-                else
-                {
+            else
+            {
                 try
                 {
                     ComPort2.Open();
@@ -379,12 +379,12 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            }
+        }
 
-            private void materialButtonsensor4_Click(object sender, EventArgs e)
+        private void materialButtonsensor4_Click(object sender, EventArgs e)
+        {
+            if (ComPort3.IsOpen)
             {
-                if (ComPort3.IsOpen)
-                {
                 try
                 {
                     ComPort3.Close();
@@ -396,8 +396,8 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-                else
-                {
+            else
+            {
                 try
                 {
                     ComPort3.Open();
@@ -409,7 +409,7 @@ namespace MaterialDashSkin
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            }
-
         }
+
     }
+}
