@@ -25,7 +25,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
         public string comport0 {
             get {
                 return ((string)(this["comport0"]));
@@ -37,7 +37,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int baudrate0 {
             get {
                 return ((int)(this["baudrate0"]));
@@ -49,7 +49,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int databit0 {
             get {
                 return ((int)(this["databit0"]));
@@ -73,7 +73,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        [global::System.Configuration.DefaultSettingValueAttribute("One")]
         public global::System.IO.Ports.StopBits stopbit0 {
             get {
                 return ((global::System.IO.Ports.StopBits)(this["stopbit0"]));
@@ -85,7 +85,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
         public string comport1 {
             get {
                 return ((string)(this["comport1"]));
@@ -97,7 +97,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int baudrate1 {
             get {
                 return ((int)(this["baudrate1"]));
@@ -109,7 +109,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int databit1 {
             get {
                 return ((int)(this["databit1"]));
@@ -145,7 +145,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
         public string comport2 {
             get {
                 return ((string)(this["comport2"]));
@@ -157,7 +157,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int baudrate2 {
             get {
                 return ((int)(this["baudrate2"]));
@@ -169,7 +169,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int databit2 {
             get {
                 return ((int)(this["databit2"]));
@@ -193,7 +193,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Two")]
+        [global::System.Configuration.DefaultSettingValueAttribute("One")]
         public global::System.IO.Ports.StopBits stopbit2 {
             get {
                 return ((global::System.IO.Ports.StopBits)(this["stopbit2"]));
@@ -205,7 +205,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
         public string comport3 {
             get {
                 return ((string)(this["comport3"]));
@@ -217,7 +217,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int baudrate3 {
             get {
                 return ((int)(this["baudrate3"]));
@@ -229,7 +229,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int databit3 {
             get {
                 return ((int)(this["databit3"]));
@@ -253,7 +253,7 @@ namespace MaterialDashSkin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Two")]
+        [global::System.Configuration.DefaultSettingValueAttribute("One")]
         public global::System.IO.Ports.StopBits stopbit3 {
             get {
                 return ((global::System.IO.Ports.StopBits)(this["stopbit3"]));

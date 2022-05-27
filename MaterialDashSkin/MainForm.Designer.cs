@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -52,6 +53,8 @@
             this.materialButtonsensor2 = new MaterialSkin.Controls.MaterialButton();
             this.materialButtonsensor3 = new MaterialSkin.Controls.MaterialButton();
             this.materialButtonsensor4 = new MaterialSkin.Controls.MaterialButton();
+            this.materialSwitch1 = new MaterialSkin.Controls.MaterialSwitch();
+            this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -88,6 +91,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.materialCheckbox1 = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialCheckbox2 = new MaterialSkin.Controls.MaterialCheckbox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -108,9 +115,11 @@
             this.materialTabControl1.ImageList = this.imageList1;
             this.materialTabControl1.ItemSize = new System.Drawing.Size(80, 48);
             this.materialTabControl1.Location = new System.Drawing.Point(10, 10);
+            this.materialTabControl1.Margin = new System.Windows.Forms.Padding(10);
             this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl1.Multiline = true;
             this.materialTabControl1.Name = "materialTabControl1";
+            this.materialTabControl1.Padding = new System.Drawing.Point(10, 10);
             this.materialTabControl1.SelectedIndex = 0;
             this.materialTabControl1.Size = new System.Drawing.Size(780, 680);
             this.materialTabControl1.TabIndex = 0;
@@ -129,10 +138,11 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.labelsensor1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelsensor2value, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelsensor2, 0, 1);
@@ -142,11 +152,13 @@
             this.tableLayoutPanel1.Controls.Add(this.labelsensor4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.chart1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelsensor4value, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.materialButtongraphplaypause, 2, 8);
-            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor2, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor3, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor4, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.materialButtongraphplaypause, 3, 8);
+            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor1, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor2, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor3, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.materialButtonsensor4, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.materialSwitch1, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.materialButton1, 2, 8);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -165,101 +177,163 @@
             // 
             // labelsensor1
             // 
+            this.labelsensor1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelsensor1.AutoSize = true;
-            this.labelsensor1.Location = new System.Drawing.Point(3, 0);
+            this.labelsensor1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelsensor1.ForeColor = System.Drawing.Color.Red;
+            this.labelsensor1.Location = new System.Drawing.Point(64, 17);
             this.labelsensor1.Name = "labelsensor1";
-            this.labelsensor1.Size = new System.Drawing.Size(53, 13);
+            this.labelsensor1.Size = new System.Drawing.Size(63, 13);
             this.labelsensor1.TabIndex = 1;
             this.labelsensor1.Text = "sensor 1 :";
             // 
             // labelsensor2value
             // 
+            this.labelsensor2value.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelsensor2value.AutoSize = true;
-            this.labelsensor2value.Location = new System.Drawing.Point(258, 47);
+            this.labelsensor2value.Location = new System.Drawing.Point(194, 64);
             this.labelsensor2value.Name = "labelsensor2value";
             this.labelsensor2value.Size = new System.Drawing.Size(0, 13);
             this.labelsensor2value.TabIndex = 4;
             // 
             // labelsensor2
             // 
+            this.labelsensor2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelsensor2.AutoSize = true;
-            this.labelsensor2.Location = new System.Drawing.Point(3, 47);
+            this.labelsensor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelsensor2.Location = new System.Drawing.Point(62, 64);
             this.labelsensor2.Name = "labelsensor2";
-            this.labelsensor2.Size = new System.Drawing.Size(56, 13);
+            this.labelsensor2.Size = new System.Drawing.Size(67, 13);
             this.labelsensor2.TabIndex = 3;
             this.labelsensor2.Text = "sensor 2 : ";
             // 
             // labelsensor1value
             // 
+            this.labelsensor1value.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelsensor1value.AutoSize = true;
-            this.labelsensor1value.Location = new System.Drawing.Point(258, 0);
+            this.labelsensor1value.Location = new System.Drawing.Point(194, 17);
             this.labelsensor1value.Name = "labelsensor1value";
             this.labelsensor1value.Size = new System.Drawing.Size(0, 13);
             this.labelsensor1value.TabIndex = 2;
             // 
             // labelsensor3
             // 
+            this.labelsensor3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelsensor3.AutoSize = true;
-            this.labelsensor3.Location = new System.Drawing.Point(3, 94);
+            this.labelsensor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelsensor3.Location = new System.Drawing.Point(62, 111);
             this.labelsensor3.Name = "labelsensor3";
-            this.labelsensor3.Size = new System.Drawing.Size(56, 13);
+            this.labelsensor3.Size = new System.Drawing.Size(67, 13);
             this.labelsensor3.TabIndex = 9;
             this.labelsensor3.Text = "sensor 3 : ";
             // 
             // labelsensor3value
             // 
+            this.labelsensor3value.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelsensor3value.AutoSize = true;
-            this.labelsensor3value.Location = new System.Drawing.Point(258, 94);
+            this.labelsensor3value.Location = new System.Drawing.Point(194, 111);
             this.labelsensor3value.Name = "labelsensor3value";
             this.labelsensor3value.Size = new System.Drawing.Size(0, 13);
             this.labelsensor3value.TabIndex = 10;
             // 
             // labelsensor4
             // 
+            this.labelsensor4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelsensor4.AutoSize = true;
-            this.labelsensor4.Location = new System.Drawing.Point(3, 141);
+            this.labelsensor4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelsensor4.Location = new System.Drawing.Point(64, 158);
             this.labelsensor4.Name = "labelsensor4";
-            this.labelsensor4.Size = new System.Drawing.Size(53, 13);
+            this.labelsensor4.Size = new System.Drawing.Size(63, 13);
             this.labelsensor4.TabIndex = 13;
             this.labelsensor4.Text = "sensor 4 :";
             // 
             // chart1
             // 
             this.chart1.BorderSkin.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.tableLayoutPanel1.SetColumnSpan(this.chart1, 3);
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisX.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MajorGrid.Enabled = false;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderColor = System.Drawing.Color.DarkGray;
+            chartArea3.CursorX.Interval = 10D;
+            chartArea3.CursorX.IntervalOffset = 1D;
+            chartArea3.CursorX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea3.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            this.tableLayoutPanel1.SetColumnSpan(this.chart1, 4);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.IsSoftShadows = false;
+            legend3.Alignment = System.Drawing.StringAlignment.Center;
+            legend3.AutoFitMinFontSize = 12;
+            legend3.BackColor = System.Drawing.Color.Transparent;
+            legend3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            legend3.DockedToChartArea = "ChartArea1";
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            legend3.ForeColor = System.Drawing.Color.DarkGray;
+            legend3.IsDockedInsideChartArea = false;
+            legend3.IsTextAutoFit = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 191);
             this.chart1.Name = "chart1";
             this.tableLayoutPanel1.SetRowSpan(this.chart1, 4);
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series2";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Name = "Series3";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Name = "Series4";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Color = System.Drawing.Color.Red;
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.Lime;
+            series10.Legend = "Legend1";
+            series10.Name = "Series2";
+            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Color = System.Drawing.Color.Blue;
+            series11.Legend = "Legend1";
+            series11.Name = "Series3";
+            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Color = System.Drawing.Color.Yellow;
+            series12.Legend = "Legend1";
+            series12.Name = "Series4";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series9);
+            this.chart1.Series.Add(series10);
+            this.chart1.Series.Add(series11);
+            this.chart1.Series.Add(series12);
             this.chart1.Size = new System.Drawing.Size(760, 372);
             this.chart1.TabIndex = 12;
             this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // labelsensor4value
             // 
+            this.labelsensor4value.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelsensor4value.AutoSize = true;
-            this.labelsensor4value.Location = new System.Drawing.Point(258, 141);
+            this.labelsensor4value.Location = new System.Drawing.Point(194, 158);
             this.labelsensor4value.Name = "labelsensor4value";
             this.labelsensor4value.Size = new System.Drawing.Size(0, 13);
             this.labelsensor4value.TabIndex = 14;
@@ -272,12 +346,12 @@
             this.materialButtongraphplaypause.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialButtongraphplaypause.HighEmphasis = true;
             this.materialButtongraphplaypause.Icon = null;
-            this.materialButtongraphplaypause.Location = new System.Drawing.Point(514, 572);
+            this.materialButtongraphplaypause.Location = new System.Drawing.Point(577, 572);
             this.materialButtongraphplaypause.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtongraphplaypause.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtongraphplaypause.Name = "materialButtongraphplaypause";
             this.materialButtongraphplaypause.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtongraphplaypause.Size = new System.Drawing.Size(248, 40);
+            this.materialButtongraphplaypause.Size = new System.Drawing.Size(185, 40);
             this.materialButtongraphplaypause.TabIndex = 11;
             this.materialButtongraphplaypause.Text = "play";
             this.materialButtongraphplaypause.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -290,16 +364,17 @@
             this.materialButtonsensor1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialButtonsensor1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.materialButtonsensor1.Depth = 0;
+            this.materialButtonsensor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialButtonsensor1.HighEmphasis = true;
             this.materialButtonsensor1.Icon = null;
-            this.materialButtonsensor1.Location = new System.Drawing.Point(514, 6);
+            this.materialButtonsensor1.Location = new System.Drawing.Point(577, 6);
             this.materialButtonsensor1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonsensor1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonsensor1.Name = "materialButtonsensor1";
             this.materialButtonsensor1.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtonsensor1.Size = new System.Drawing.Size(89, 35);
+            this.materialButtonsensor1.Size = new System.Drawing.Size(185, 35);
             this.materialButtonsensor1.TabIndex = 15;
-            this.materialButtonsensor1.Text = "connect";
+            this.materialButtonsensor1.Text = "OPEN";
             this.materialButtonsensor1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonsensor1.UseAccentColor = false;
             this.materialButtonsensor1.UseVisualStyleBackColor = true;
@@ -310,16 +385,17 @@
             this.materialButtonsensor2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialButtonsensor2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.materialButtonsensor2.Depth = 0;
+            this.materialButtonsensor2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialButtonsensor2.HighEmphasis = true;
             this.materialButtonsensor2.Icon = null;
-            this.materialButtonsensor2.Location = new System.Drawing.Point(514, 53);
+            this.materialButtonsensor2.Location = new System.Drawing.Point(577, 53);
             this.materialButtonsensor2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonsensor2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonsensor2.Name = "materialButtonsensor2";
             this.materialButtonsensor2.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtonsensor2.Size = new System.Drawing.Size(89, 35);
+            this.materialButtonsensor2.Size = new System.Drawing.Size(185, 35);
             this.materialButtonsensor2.TabIndex = 16;
-            this.materialButtonsensor2.Text = "connect";
+            this.materialButtonsensor2.Text = "OPEN";
             this.materialButtonsensor2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonsensor2.UseAccentColor = false;
             this.materialButtonsensor2.UseVisualStyleBackColor = true;
@@ -330,16 +406,17 @@
             this.materialButtonsensor3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialButtonsensor3.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.materialButtonsensor3.Depth = 0;
+            this.materialButtonsensor3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialButtonsensor3.HighEmphasis = true;
             this.materialButtonsensor3.Icon = null;
-            this.materialButtonsensor3.Location = new System.Drawing.Point(514, 100);
+            this.materialButtonsensor3.Location = new System.Drawing.Point(577, 100);
             this.materialButtonsensor3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonsensor3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonsensor3.Name = "materialButtonsensor3";
             this.materialButtonsensor3.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtonsensor3.Size = new System.Drawing.Size(89, 35);
+            this.materialButtonsensor3.Size = new System.Drawing.Size(185, 35);
             this.materialButtonsensor3.TabIndex = 17;
-            this.materialButtonsensor3.Text = "connect";
+            this.materialButtonsensor3.Text = "OPEN";
             this.materialButtonsensor3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonsensor3.UseAccentColor = false;
             this.materialButtonsensor3.UseVisualStyleBackColor = true;
@@ -350,20 +427,58 @@
             this.materialButtonsensor4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialButtonsensor4.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.materialButtonsensor4.Depth = 0;
+            this.materialButtonsensor4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialButtonsensor4.HighEmphasis = true;
             this.materialButtonsensor4.Icon = null;
-            this.materialButtonsensor4.Location = new System.Drawing.Point(514, 147);
+            this.materialButtonsensor4.Location = new System.Drawing.Point(577, 147);
             this.materialButtonsensor4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonsensor4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonsensor4.Name = "materialButtonsensor4";
             this.materialButtonsensor4.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtonsensor4.Size = new System.Drawing.Size(89, 35);
+            this.materialButtonsensor4.Size = new System.Drawing.Size(185, 35);
             this.materialButtonsensor4.TabIndex = 18;
-            this.materialButtonsensor4.Text = "connect";
+            this.materialButtonsensor4.Text = "OPEN";
             this.materialButtonsensor4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonsensor4.UseAccentColor = false;
             this.materialButtonsensor4.UseVisualStyleBackColor = true;
             this.materialButtonsensor4.Click += new System.EventHandler(this.materialButtonsensor4_Click);
+            // 
+            // materialSwitch1
+            // 
+            this.materialSwitch1.AutoSize = true;
+            this.materialSwitch1.Depth = 0;
+            this.materialSwitch1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialSwitch1.Location = new System.Drawing.Point(0, 566);
+            this.materialSwitch1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialSwitch1.Name = "materialSwitch1";
+            this.materialSwitch1.Ripple = true;
+            this.materialSwitch1.Size = new System.Drawing.Size(191, 52);
+            this.materialSwitch1.TabIndex = 20;
+            this.materialSwitch1.Text = "Record";
+            this.materialSwitch1.UseVisualStyleBackColor = true;
+            this.materialSwitch1.CheckedChanged += new System.EventHandler(this.materialSwitch1_CheckedChanged);
+            // 
+            // materialButton1
+            // 
+            this.materialButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButton1.Depth = 0;
+            this.materialButton1.HighEmphasis = true;
+            this.materialButton1.Icon = null;
+            this.materialButton1.Location = new System.Drawing.Point(386, 572);
+            this.materialButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton1.Name = "materialButton1";
+            this.materialButton1.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButton1.Size = new System.Drawing.Size(158, 36);
+            this.materialButton1.TabIndex = 21;
+            this.materialButton1.Text = "materialButton1";
+            this.materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton1.UseAccentColor = false;
+            this.materialButton1.UseVisualStyleBackColor = true;
+            this.materialButton1.Click += new System.EventHandler(this.materialButton1_Click_1);
             // 
             // tabPage2
             // 
@@ -556,7 +671,6 @@
             this.materialComboBoxsensor1baud.Size = new System.Drawing.Size(121, 49);
             this.materialComboBoxsensor1baud.StartIndex = 0;
             this.materialComboBoxsensor1baud.TabIndex = 11;
-            this.materialComboBoxsensor1baud.SelectedIndexChanged += new System.EventHandler(this.materialComboBoxsensor1baud_SelectedIndexChanged);
             // 
             // materialComboBoxdatabit1
             // 
@@ -1202,6 +1316,26 @@
             this.materialCheckbox2.Text = "materialCheckbox2";
             this.materialCheckbox2.UseVisualStyleBackColor = true;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.WorkerSupportsCancellation = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            // 
+            // backgroundWorker3
+            // 
+            this.backgroundWorker3.WorkerSupportsCancellation = true;
+            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
+            // 
+            // backgroundWorker4
+            // 
+            this.backgroundWorker4.WorkerSupportsCancellation = true;
+            this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1215,7 +1349,7 @@
             this.DrawerTabControl = this.materialTabControl1;
             this.DrawerUseColors = true;
             this.DrawerWidth = 225;
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -1289,5 +1423,11 @@
         private MaterialSkin.Controls.MaterialComboBox materialComboBoxparity4;
         private MaterialSkin.Controls.MaterialComboBox materialComboBoxstopbit4;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
+        private MaterialSkin.Controls.MaterialSwitch materialSwitch1;
+        private MaterialSkin.Controls.MaterialButton materialButton1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.ComponentModel.BackgroundWorker backgroundWorker4;
     }
 }
