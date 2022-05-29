@@ -262,5 +262,75 @@ namespace MaterialDashSkin.Properties {
                 this["stopbit3"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string databaseUrl {
+            get {
+                return ((string)(this["databaseUrl"]));
+            }
+            set {
+                this["databaseUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string databasePort {
+            get {
+                return ((string)(this["databasePort"]));
+            }
+            set {
+                this["databasePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string databaseLogin {
+            get {
+                return ((string)(this["databaseLogin"]));
+            }
+            set {
+                this["databaseLogin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string databasePassword {
+            get {
+                return ((string)(this["databasePassword"]));
+            }
+            set {
+                this["databasePassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList testbaudrate {
+            get {
+                return ((global::System.Collections.ArrayList)(this["testbaudrate"]));
+            }
+            set {
+                this["testbaudrate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.CollectionsUtil test2 {
+            get {
+                return ((global::System.Collections.Specialized.CollectionsUtil)(this["test2"]));
+            }
+            set {
+                this["test2"] = value;
+            }
+        }
     }
 }
