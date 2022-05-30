@@ -25,41 +25,46 @@ namespace MaterialDashSkin
 {
     public partial class MainForm : MaterialForm
     {
+
         System.IFormatProvider cultureUS = new System.Globalization.CultureInfo("en-US");
 
-        //int pointCounter0, pointCounter1, pointCounter2, pointCounter3 = 0;
-
-        // Define serial port object
-        //SerialPort ComPort0, ComPort1, ComPort2, ComPort3;
+        // Activate debug message or not
         private bool myDebug = true;
 
-        String mySerialData0 = "";
-        String mySerialData1 = "";
-        String mySerialData2 = "";
-        String mySerialData3 = "";
-
+        // Counter of series
         int mySeries = 0;
 
+        // SQL connection String
         string constr;
+        // SQL object
+        SqlConnection conn;
 
+        // Graph
         int GridlinesOffset = 0;
+        
+        // Baudrate array
         int[] MyBaudrate = { 150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400 };
+        // Databit array
         int[] MyDataBits = { 5, 6, 7, 8 };
 
+        // Recorded sensors data
         ArrayList mySensorData1 = new ArrayList();
         ArrayList mySensorData2 = new ArrayList();
         ArrayList mySensorData3 = new ArrayList();
         ArrayList mySensorData4 = new ArrayList();
 
-        //bool mySensorPort0, mySensorPort1, mySensorPort2, mySensorPort3 = false;
+        //bool myRecording = false;
+        bool myPlayPause = false;
 
-        bool myRecording = false;
-        SqlConnection conn;
+        // Special trix to route form to array name
+        Label[] _Labels = new Label[4];
+        ComboBox[] _SettingsCombobox = new ComboBox[4];
+        Button[] _buttonPorts = new Button[4];
+        String[] mySerialData = new String[] {"","","",""};
+        Settings[] _SettingsComport = new Settings[4];
 
-
+        // Array of serials Ports
         List<SerialPort> mySerialPorts = new List<SerialPort>();
-        
-
 
 
         public MainForm()
@@ -84,8 +89,26 @@ namespace MaterialDashSkin
             );
             materialSkinManager.EnforceBackcolorOnAllComponents = false;
 
+            // Create array from form layout
+            _Labels[0] = this.labelsensor1value;
+            _Labels[1] = this.labelsensor2value;
+            _Labels[2] = this.labelsensor3value;
+            _Labels[3] = this.labelsensor4value;
+
+            _SettingsCombobox[0] = this.materialComboBoxsensor1port;
+            _SettingsCombobox[1] = this.materialComboBoxsensor2port;
+            _SettingsCombobox[2] = this.materialComboBoxsensor3port;
+            _SettingsCombobox[3] = this.materialComboBoxsensor4port;
+
+            _buttonPorts[0] = this.materialButtonsensor1;
+            _buttonPorts[1] = this.materialButtonsensor2;
+            _buttonPorts[2] = this.materialButtonsensor3;
+            _buttonPorts[3] = this.materialButtonsensor4;
+
+            //_SettingsComport[0] = Settings.Default.comport0.ToString();
+
             // Set text from settings
-            /*
+
             Debug.WriteLineIf(myDebug, "get baudrate0 :" + Settings.Default.baudrate0);
             Debug.WriteLineIf(myDebug, "get comport0 :" + Settings.Default.comport0.ToString());
             Debug.WriteLineIf(myDebug, "get databit0 :" + Settings.Default.databit0.ToString() + " value : " + materialComboBoxdatabit1.FindString(Settings.Default.databit0.ToString()));
@@ -109,29 +132,29 @@ namespace MaterialDashSkin
             Debug.WriteLineIf(myDebug, "get databit3 :" + Settings.Default.databit3.ToString() + " value : " + materialComboBoxdatabit4.FindString(Settings.Default.databit3.ToString()));
             Debug.WriteLineIf(myDebug, "get parity3 :" + (Parity)Enum.Parse(typeof(Parity), Settings.Default.parity3.ToString()));
             Debug.WriteLineIf(myDebug, "get stopbit3 :" + (StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit3.ToString()));
-            */
+            
 
             // Re apply saved settings
             materialComboBoxsensor1baud.SelectedIndex = Settings.Default.baudrate0;
-            materialComboBoxsensor1port.Text = Settings.Default.comport0.ToString();
+            _SettingsCombobox[0].Text = Settings.Default.comport0.ToString();
             materialComboBoxdatabit1.SelectedIndex = Settings.Default.databit0;
             materialComboBoxparity1.SelectedIndex = (int)(Parity)Enum.Parse(typeof(Parity), Settings.Default.parity0.ToString());
             materialComboBoxstopbit1.SelectedIndex = (int)(StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit0.ToString());
 
             materialComboBoxsensor2baud.SelectedIndex = Settings.Default.baudrate1;
-            materialComboBoxsensor2port.Text = Settings.Default.comport1.ToString();
+            _SettingsCombobox[1].Text = Settings.Default.comport1.ToString();
             materialComboBoxdatabit2.SelectedIndex = Settings.Default.databit1;
             materialComboBoxparity2.SelectedIndex = (int)(Parity)Enum.Parse(typeof(Parity), Settings.Default.parity1.ToString());
             materialComboBoxstopbit2.SelectedIndex = (int)(StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit1.ToString());
 
             materialComboBoxsensor3baud.SelectedIndex = Settings.Default.baudrate2;
-            materialComboBoxsensor3port.Text = Settings.Default.comport2.ToString();
+            _SettingsCombobox[2].Text = Settings.Default.comport2.ToString();
             materialComboBoxdatabit3.SelectedIndex = Settings.Default.databit2;
             materialComboBoxparity3.SelectedIndex = (int)(Parity)Enum.Parse(typeof(Parity), Settings.Default.parity2.ToString());
             materialComboBoxstopbit3.SelectedIndex = (int)(StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit2.ToString());
 
             materialComboBoxsensor4baud.SelectedIndex = Settings.Default.baudrate3;
-            materialComboBoxsensor4port.Text = Settings.Default.comport3.ToString();
+            _SettingsCombobox[3].Text = Settings.Default.comport3.ToString();
             materialComboBoxdatabit4.SelectedIndex = Settings.Default.databit3;
             materialComboBoxparity4.SelectedIndex = (int)(Parity)Enum.Parse(typeof(Parity), Settings.Default.parity3.ToString());
             materialComboBoxstopbit4.SelectedIndex = (int)(StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit3.ToString());
@@ -327,130 +350,6 @@ namespace MaterialDashSkin
 
             return true;
         }
-        /*
-        private void SetttingComPorts()
-        {
-            // Setting serial 0
-            try
-            {
-                ComPort0 = new SerialPort();
-
-                Debug.WriteLineIf(myDebug, "ComPort0.PortName :" + Settings.Default.comport0);
-                Debug.WriteLineIf(myDebug, "ComPort0.BaudRate :" + MyBaudrate[Settings.Default.baudrate0]);
-                Debug.WriteLineIf(myDebug, "ComPort0.Parity :" + Settings.Default.parity0);
-                Debug.WriteLineIf(myDebug, "ComPort0.DataBits :" + MyDataBits[Settings.Default.databit0]);
-                Debug.WriteLineIf(myDebug, "ComPort0.StopBits :" + Settings.Default.stopbit0);
-
-
-                ComPort0.PortName = Settings.Default.comport0;      // Name of your COM port 
-                ComPort0.BaudRate = MyBaudrate[Settings.Default.baudrate0];     // Baudrate
-                ComPort0.Parity = Settings.Default.parity0;       // Parity bits = none  
-                ComPort0.DataBits = MyDataBits[Settings.Default.databit0];      // No of Data bits = 8
-                ComPort0.StopBits = Settings.Default.stopbit0;      // No of Stop bits = 1
-
-                // Set the read/write timeouts
-                ComPort0.ReadTimeout = 1500;
-                ComPort0.WriteTimeout = 1500;
-
-                ComPort0.DataReceived += new SerialDataReceivedEventHandler(ComPort0_DataReceived);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Setting serial 1
-            try
-            {
-                ComPort1 = new SerialPort();
-
-                Debug.WriteLineIf(myDebug, "ComPort1.PortName :" + Settings.Default.comport1);
-                Debug.WriteLineIf(myDebug, "ComPort1.BaudRate :" + MyBaudrate[Settings.Default.baudrate1]);
-                Debug.WriteLineIf(myDebug, "ComPort1.Parity :" + Settings.Default.parity1);
-                Debug.WriteLineIf(myDebug, "ComPort1.DataBits :" + MyDataBits[Settings.Default.databit1]);
-                Debug.WriteLineIf(myDebug, "ComPort1.StopBits :" + Settings.Default.stopbit1);
-
-
-                ComPort1.PortName = Settings.Default.comport1;      // Name of your COM port 
-                ComPort1.BaudRate = MyBaudrate[Settings.Default.baudrate1];     // Baudrate
-                ComPort1.Parity = Settings.Default.parity1;       // Parity bits = none  
-                ComPort1.DataBits = MyDataBits[Settings.Default.databit1];      // No of Data bits = 8
-                ComPort1.StopBits = Settings.Default.stopbit1;      // No of Stop bits = 1
-
-                // Set the read/write timeouts
-                ComPort1.ReadTimeout = 1500;
-                ComPort1.WriteTimeout = 1500;
-
-                ComPort1.DataReceived += new SerialDataReceivedEventHandler(ComPort1_DataReceived);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Setting serial 1
-            try
-            {
-                ComPort2 = new SerialPort();
-
-                Debug.WriteLineIf(myDebug, "ComPort2.PortName :" + Settings.Default.comport2);
-                Debug.WriteLineIf(myDebug, "ComPort2.BaudRate :" + MyBaudrate[Settings.Default.baudrate2]);
-                Debug.WriteLineIf(myDebug, "ComPort2.Parity :" + Settings.Default.parity2);
-                Debug.WriteLineIf(myDebug, "ComPort2.DataBits :" + MyDataBits[Settings.Default.databit2]);
-                Debug.WriteLineIf(myDebug, "ComPort2.StopBits :" + Settings.Default.stopbit2);
-
-
-                ComPort2.PortName = Settings.Default.comport2;      // Name of your COM port 
-                ComPort2.BaudRate = MyBaudrate[Settings.Default.baudrate2];     // Baudrate
-                ComPort2.Parity = Settings.Default.parity2;       // Parity bits = none  
-                ComPort2.DataBits = MyDataBits[Settings.Default.databit2];      // No of Data bits = 8
-                ComPort2.StopBits = Settings.Default.stopbit2;      // No of Stop bits = 1
-
-                // Set the read/write timeouts
-                ComPort2.ReadTimeout = 1500;
-                ComPort2.WriteTimeout = 1500;
-
-                ComPort2.DataReceived += new SerialDataReceivedEventHandler(ComPort2_DataReceived);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Setting serial 1
-            try
-            {
-                ComPort3 = new SerialPort();
-
-                Debug.WriteLineIf(myDebug, "ComPort3.PortName :" + Settings.Default.comport3);
-                Debug.WriteLineIf(myDebug, "ComPort3.BaudRate :" + MyBaudrate[Settings.Default.baudrate3]);
-                Debug.WriteLineIf(myDebug, "ComPort3.Parity :" + Settings.Default.parity3);
-                Debug.WriteLineIf(myDebug, "ComPort3.DataBits :" + MyDataBits[Settings.Default.databit3]);
-                Debug.WriteLineIf(myDebug, "ComPort3.StopBits :" + Settings.Default.stopbit3);
-
-
-                ComPort3.PortName = Settings.Default.comport3;      // Name of your COM port 
-                ComPort3.BaudRate = MyBaudrate[Settings.Default.baudrate3];     // Baudrate
-                ComPort3.Parity = Settings.Default.parity3;       // Parity bits = none  
-                ComPort3.DataBits = MyDataBits[Settings.Default.databit3];      // No of Data bits = 8
-                ComPort3.StopBits = Settings.Default.stopbit3;      // No of Stop bits = 1
-
-                // Set the read/write timeouts
-                ComPort3.ReadTimeout = 1500;
-                ComPort3.WriteTimeout = 1500;
-
-                ComPort3.DataReceived += new SerialDataReceivedEventHandler(ComPort3_DataReceived);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        */
 
         private void MainForm_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
@@ -477,7 +376,7 @@ namespace MaterialDashSkin
             try
             {
                 mySensorData1.Add((float)Convert.ToDouble(mySenrodataString1));
-                mySerialData0 = mySenrodataString1;
+                mySerialData[0] = mySenrodataString1;
 
             }
             catch (Exception ex)
@@ -495,7 +394,7 @@ namespace MaterialDashSkin
             try
             {
                 mySensorData2.Add((float)Convert.ToDouble(mySenrodataString2));
-                mySerialData1 = mySenrodataString2;
+                mySerialData[1] = mySenrodataString2;
             }
             catch (Exception ex)
             {
@@ -513,7 +412,7 @@ namespace MaterialDashSkin
             try
             {
                 mySensorData3.Add((float)Convert.ToDouble(mySenrodataString3));
-                mySerialData2 = mySenrodataString3;
+                mySerialData[2] = mySenrodataString3;
             }
             catch (Exception ex)
             {
@@ -531,7 +430,7 @@ namespace MaterialDashSkin
             try
             {
                 mySensorData4.Add((float)Convert.ToDouble(mySenrodataString4));
-                mySerialData3 = mySenrodataString4;
+                mySerialData[3] = mySenrodataString4;
             }
             catch (Exception ex)
             {
@@ -543,83 +442,53 @@ namespace MaterialDashSkin
         // Form load
         private void Form2_Load(object sender, EventArgs e)
         {
-            // Populate listbox with serial port name
-            string[] ports = SerialPort.GetPortNames();
 
-            // Clear serial port 0 name
-            materialComboBoxsensor1port.Items.Clear();
-
-            // Populate serial port combobox
-            foreach (string comport in ports)
-            {
-                materialComboBoxsensor1port.Items.Add(comport);
-            }
-
-            // If com port > 0 find serial port com in saved setting and re apply
-            if (materialComboBoxsensor1port.Items.Count > 0)
-            {
-                int index = materialComboBoxsensor1port.FindString(Settings.Default.comport0);
-                materialComboBoxsensor1port.SelectedIndex = index;
-            }
-            else
-            {
-                materialComboBoxsensor1port.Text = " "; //if there are no com ports ,write Empty
-            }
-
-            materialComboBoxsensor2port.Items.Clear();
             
-            foreach (string comport in ports)
-            {
-                materialComboBoxsensor2port.Items.Add(comport);
-            }
 
-            // If com port > 0 find serial port com in saved setting and re apply
-            if (materialComboBoxsensor2port.Items.Count > 0)
-            {
-                int index = materialComboBoxsensor2port.FindString(Settings.Default.comport1);
-                materialComboBoxsensor2port.SelectedIndex = index;
-            }
-            else
-            {
-                materialComboBoxsensor2port.Text = " "; //if there are no com ports ,write Empty
-            }
+            for (int i=0; i <4;i++) {
 
-            materialComboBoxsensor3port.Items.Clear();
-            foreach (string comport in ports)
-            {
-                materialComboBoxsensor3port.Items.Add(comport);
-            }
+                // Populate listbox with serial port name
+                string[] ports = SerialPort.GetPortNames();
 
-            // If com port > 0 find serial port com in saved setting and re apply
-            if (materialComboBoxsensor3port.Items.Count > 0)
-            {
-                int index = materialComboBoxsensor3port.FindString(Settings.Default.comport2);
-                materialComboBoxsensor3port.SelectedIndex = index;
-            }
-            else
-            {
-                materialComboBoxsensor3port.Text = " "; //if there are no com ports ,write Empty
-            }
+                // Clear serial port 0 name
+                _SettingsCombobox[i].Items.Clear();
 
-            materialComboBoxsensor4port.Items.Clear();
-            foreach (string comport in ports)
-            {
-                materialComboBoxsensor4port.Items.Add(comport);
-            }
+                // Populate serial port combobox
+                foreach (string comport in ports)
+                {
+                    _SettingsCombobox[i].Items.Add(comport);
+                }
 
-            // If com port > 0 find serial port com in saved setting and re apply
-            if (materialComboBoxsensor4port.Items.Count > 0)
-            {
-                int index = materialComboBoxsensor4port.FindString(Settings.Default.comport3);
-                materialComboBoxsensor4port.SelectedIndex = index;
-            }
-            else
-            {
-                materialComboBoxsensor1port.Text = " "; //if there are no com ports ,write Empty
+                // If com port > 0 find serial port com in saved setting and re apply
+                if (_SettingsCombobox[i].Items.Count > 0)
+                {
+                    int index=0;
+
+                    switch (i)
+                    {
+                        case 0:
+                            index = _SettingsCombobox[i].FindString(Settings.Default.comport0);
+                            break;
+                        case 1:
+                            index = _SettingsCombobox[i].FindString(Settings.Default.comport1);
+                            break;
+                        case 2:
+                            index = _SettingsCombobox[i].FindString(Settings.Default.comport2);
+                            break;
+                        case 3:
+                            index = _SettingsCombobox[i].FindString(Settings.Default.comport3);
+                            break;
+                    }
+                    
+                    _SettingsCombobox[i].SelectedIndex = index;
+                }
+                else
+                {
+                    _SettingsCombobox[i].Text = " "; //if there are no com ports ,write Empty
+                }
             }
 
             // Setting chart config
-
             int myMajorGridInterval = 100;
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             chart1.ChartAreas[0].AxisY.Maximum = 500;
@@ -635,12 +504,16 @@ namespace MaterialDashSkin
                 // Get actual date and time
                 DateTime now = DateTime.Now;
 
-                // Populate graph with data
-                chart1.Series["Series1"].Points.AddXY("", "");
-                chart1.Series["Series2"].Points.AddXY("", "");
-                chart1.Series["Series3"].Points.AddXY("", "");
-                chart1.Series["Series4"].Points.AddXY("", "");
+                // Populate graph with blank data
+                for(int j=0; j<4; j++)
+                {
+                    chart1.Series[j].Points.AddXY("", "");
+                }
+                
             }
+
+            // Debug chart
+            Debug.WriteLineIf(myDebug, "chart1 count : " + chart1.Series.Count());
 
             // Paint graph
             chart1.Update();
@@ -648,21 +521,6 @@ namespace MaterialDashSkin
 
         }
 
-        /*
-        // Start / pause graph live view
-        private void materialButton1_Click(object sender, EventArgs e)
-        {
-            
-            if (timer1.Enabled)
-            {
-                timer1.Stop();
-            }
-            else
-            {
-                timer1.Start();
-            }
-        }
-        */
 
         // Timer1 used to update graph
         private void timer1_Tick(object sender, EventArgs e)
@@ -671,203 +529,39 @@ namespace MaterialDashSkin
             // Get time and date
             DateTime now = DateTime.Now;
 
-            if (mySerialPorts[0].IsOpen)
+            for (int i = 0; i < 4; i++)
             {
-                try
+                if (mySerialPorts[i].IsOpen)
                 {
-                    labelsensor1value.Text = mySerialData0;
-                    chart1.Series["Series1"].Points.RemoveAt(0);
-                    chart1.Series["Series1"].Points.AddXY(now, yValue: mySerialData0.Replace(",", "."));
-                    chart1.Series["Series1"].IsXValueIndexed = true;
-
+                    try
+                    {
+                        _Labels[i].Text = mySerialData[i];
+                        if (myPlayPause) {
+                            chart1.Series[i].Points.RemoveAt(0);
+                            chart1.Series[i].Points.AddXY(now, yValue: mySerialData[i].Replace(",", "."));
+                            chart1.Series[i].IsXValueIndexed = true;
+                        }
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                chart1.Series["Series1"].Points.RemoveAt(0);
-                chart1.Series["Series1"].Points.AddXY(now, "");
-                chart1.Series["Series1"].IsXValueIndexed = true;
-                if (myRecording) { }
-            }
-
-            if (mySerialPorts[1].IsOpen)
-            {
-                try
-                {
-                    labelsensor2value.Text = mySerialData1;
-                    chart1.Series["Series2"].Points.RemoveAt(0);
-                    chart1.Series["Series2"].Points.AddXY(now, yValue: mySerialData1.Replace(",", "."));
-                    chart1.Series["Series2"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (myPlayPause)
+                    {
+                        chart1.Series[i].Points.RemoveAt(0);
+                        chart1.Series[i].Points.AddXY(now, "");
+                        chart1.Series[i].IsXValueIndexed = true;
+                    }
                 }
             }
-            else
-            {
-                chart1.Series["Series2"].Points.RemoveAt(0);
-                chart1.Series["Series2"].Points.AddXY(now, "");
-                chart1.Series["Series2"].IsXValueIndexed = true;
-            }
-
-            if (mySerialPorts[2].IsOpen)
-            {
-
-                try
-                {
-                    labelsensor3value.Text = mySerialData2;
-                    chart1.Series["Series3"].Points.RemoveAt(0);
-                    chart1.Series["Series3"].Points.AddXY(now, yValue: mySerialData2.Replace(",", "."));
-                    chart1.Series["Series3"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                chart1.Series["Series3"].Points.RemoveAt(0);
-                chart1.Series["Series3"].Points.AddXY(now, "");
-                chart1.Series["Series3"].IsXValueIndexed = true;
-            }
-
-            if (mySerialPorts[3].IsOpen)
-            {
-
-                try
-                {
-                    labelsensor4value.Text = mySerialData3;
-                    chart1.Series["Series4"].Points.RemoveAt(0);
-                    chart1.Series["Series4"].Points.AddXY(now, yValue: mySerialData3.Replace(",", "."));
-                    chart1.Series["Series4"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-            }
-            else
-            {
-                chart1.Series["Series4"].Points.RemoveAt(0);
-                chart1.Series["Series4"].Points.AddXY(now, "");
-                chart1.Series["Series4"].IsXValueIndexed = true;
-            }
-            /*
-            if (ComPort0.IsOpen)
-            {
-                try
-                {
-                    labelsensor1value.Text = mySerialData0;
-                    chart1.Series["Series1"].Points.RemoveAt(0);
-                    chart1.Series["Series1"].Points.AddXY(now, yValue: mySerialData0.Replace(",", "."));
-                    chart1.Series["Series1"].IsXValueIndexed = true;
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                chart1.Series["Series1"].Points.RemoveAt(0);
-                chart1.Series["Series1"].Points.AddXY(now, "");
-                chart1.Series["Series1"].IsXValueIndexed = true;
-                if (myRecording) { }
-            }
-
-            if (ComPort1.IsOpen)
-            {
-                try
-                {
-                    labelsensor2value.Text = mySerialData1;
-                    chart1.Series["Series2"].Points.RemoveAt(0);
-                    chart1.Series["Series2"].Points.AddXY(now, yValue: mySerialData1.Replace(",", "."));
-                    chart1.Series["Series2"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                chart1.Series["Series2"].Points.RemoveAt(0);
-                chart1.Series["Series2"].Points.AddXY(now, "");
-                chart1.Series["Series2"].IsXValueIndexed = true;
-            }
-
-            if (ComPort2.IsOpen)
-            {
-
-                try
-                {
-                    labelsensor3value.Text = mySerialData2;
-                    chart1.Series["Series3"].Points.RemoveAt(0);
-                    chart1.Series["Series3"].Points.AddXY(now, yValue: mySerialData2.Replace(",", "."));
-                    chart1.Series["Series3"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                chart1.Series["Series3"].Points.RemoveAt(0);
-                chart1.Series["Series3"].Points.AddXY(now, "");
-                chart1.Series["Series3"].IsXValueIndexed = true;
-            }
-
-            if (ComPort3.IsOpen)
-            {
-
-                try
-                {
-                    labelsensor4value.Text = mySerialData3;
-                    chart1.Series["Series4"].Points.RemoveAt(0);
-                    chart1.Series["Series4"].Points.AddXY(now, yValue: mySerialData3.Replace(",", "."));
-                    chart1.Series["Series4"].IsXValueIndexed = true;
-                    if (myRecording) { }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-            }
-            else
-            {
-                chart1.Series["Series4"].Points.RemoveAt(0);
-                chart1.Series["Series4"].Points.AddXY(now, "");
-                chart1.Series["Series4"].IsXValueIndexed = true;
-            }
-            */
+            
 
             chart1.ResetAutoValues();
-
 
             // Make gridlines move.
             chart1.ChartAreas[0].AxisX.MajorGrid.IntervalOffset = -GridlinesOffset;
@@ -875,41 +569,37 @@ namespace MaterialDashSkin
             // Calculate next offset.
             GridlinesOffset++;
             GridlinesOffset %= (int)chart1.ChartAreas[0].AxisX.MajorGrid.Interval;
-
-            // Redraw the graph
-            //chart1.Update();
-
-
         }
 
 
         private void materialButtongraphplaypause_Click(object sender, EventArgs e)
         {
-            if (timer1.Enabled)
+            if (myPlayPause)
             {
                 materialButtongraphplaypause.Text = "PLAY";
-                timer1.Stop();
-            }
-            else
+                myPlayPause = false;
+            } else
             {
                 materialButtongraphplaypause.Text = "PAUSE";
-                timer1.Start();
+                myPlayPause = true;
+
             }
         }
 
-        private void materialButtonsensor1_Click(object sender, EventArgs e)
+        private void myOpenClosePort(object sender, int myNumber, EventArgs e)
         {
-            
-
-            
-            if (mySerialPorts[0].IsOpen)
+            if (mySerialPorts[myNumber].IsOpen)
             {
                 try
                 {
                     //backgroundWorker1.CancelAsync();
-                    mySerialPorts[0].Close();
-                    materialButtonsensor1.Text = "OPEN";
-                    //mySensorPort0 = false;
+                    mySerialPorts[myNumber].Close();
+                    _buttonPorts[myNumber].Text = "OPEN";
+                    _Labels[myNumber].Text = "";
+
+                    //timer1.Stop();
+                   
+                    
                 }
                 catch (Exception ex)
                 {
@@ -921,10 +611,10 @@ namespace MaterialDashSkin
             {
                 try
                 {
-                    mySerialPorts[0].Open();
+                    mySerialPorts[myNumber].Open();
                     //backgroundWorker1.RunWorkerAsync();
-                    materialButtonsensor1.Text = "CLOSE";
-                    //mySensorPort0 = true;
+                    _buttonPorts[myNumber].Text = "CLOSE";
+                    timer1.Start();
                 }
                 catch (Exception ex)
                 {
@@ -935,121 +625,26 @@ namespace MaterialDashSkin
 
         }
 
-        private void materialButtonsensor2_Click(object sender, EventArgs e)
-        {
-            if (mySerialPorts[1].IsOpen)
-            {
-                try
-                {
-                    mySerialPorts[1].Close();
-                    materialButtonsensor2.Text = "OPEN";
-                    //mySensorPort1 = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                try
-                {
-                    mySerialPorts[1].Open();
-                    materialButtonsensor2.Text = "CLOSE";
-                    //mySensorPort1 = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void materialButtonsensor3_Click(object sender, EventArgs e)
-        {
-            if (mySerialPorts[2].IsOpen)
-            {
-                try
-                {
-                    mySerialPorts[2].Close();
-                    materialButtonsensor3.Text = "OPEN";
-                    //mySensorPort3 = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                try
-                {
-                    mySerialPorts[2].Open();
-                    materialButtonsensor3.Text = "CLOSE";
-                    //mySensorPort3 = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void materialButtonsensor4_Click(object sender, EventArgs e)
-        {
-            if (mySerialPorts[3].IsOpen)
-            {
-                try
-                {
-                    mySerialPorts[3].Close();
-                    materialButtonsensor4.Text = "OPEN";
-                    //mySensorPort3 = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                try
-                {
-                    mySerialPorts[3].Open();
-                    materialButtonsensor4.Text = "CLOSE";
-                    //mySensorPort3 = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
+        private void materialButtonsensor1_Click(object sender, EventArgs e) { myOpenClosePort(sender, 0, e); }
+        private void materialButtonsensor2_Click(object sender, EventArgs e) { myOpenClosePort(sender, 1, e); }
+        private void materialButtonsensor3_Click(object sender, EventArgs e) { myOpenClosePort(sender, 2, e); }
+        private void materialButtonsensor4_Click(object sender, EventArgs e) { myOpenClosePort(sender, 3, e); }
+        
         private void materialSwitch1_CheckedChanged(object sender, EventArgs e)
         {
             if (materialSwitch1.Checked == true)
             {
-                myRecording = true;
+                
             }
             else
             {
-                myRecording = false;
+                
 
                 for (int i = 0; i < mySerialPorts.Count-1; i++)
                 {
                     mySerialPorts[i].Close();
                 }
 
-                //ComPort0.Close();
-                //ComPort1.Close();
-                //ComPort2.Close();
-                //ComPort3.Close();
 
                 if (conn.State == ConnectionState.Closed)
                 {
@@ -1077,14 +672,7 @@ namespace MaterialDashSkin
                     string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
                     string sql = "";
-                    /*
-                    Debug.WriteLineIf(myDebug,"mySensorData1 : " 
-                        + mySensorData1[i].ToString().Replace(",", ".") 
-                        + " mySensorData2 : " + mySensorData2[i].ToString().Replace(",", ".")
-                        + " mySensorData3 : " + mySensorData3[i].ToString().Replace(",", ".")
-                        + " mySensorData4 : " + mySensorData4[i].ToString().Replace(",", ".")
-                        );
-                    */
+                    
                     sql = "INSERT INTO myTable (sensor1, sensor2, sensor3, sensor4, datetime, serie) values("
                         + mySensorData1[i].ToString().Replace(",", ".")
                         + ","
@@ -1143,12 +731,7 @@ namespace MaterialDashSkin
                 {
                     mySerialPorts[i].Open();
                 }
-                /*
-                ComPort0.Open();
-                ComPort1.Open();
-                ComPort2.Open();
-                ComPort3.Open();
-                */
+            
             }
 
 
@@ -1180,6 +763,16 @@ namespace MaterialDashSkin
 
         }
 
+        private void dataGridView1_Scroll(object sender, ScrollEventArgs e)
+
+        {
+            /*
+            Debug.WriteLineIf(myDebug, "SCROLL !");
+            dataGridView1.Invalidate();
+            dataGridView1.Refresh();
+            */
+        }
+
         private void materialButton3_Click(object sender, EventArgs e)
         {
             conn = new SqlConnection(constr);
@@ -1192,6 +785,7 @@ namespace MaterialDashSkin
             // populate table with sql data 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = dtbl;
+            dataGridView1.Refresh();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -1226,25 +820,25 @@ namespace MaterialDashSkin
         private void materialButton2_Click_1(object sender, EventArgs e)
         {
             // Set settings from form
-            Settings.Default.comport0 = materialComboBoxsensor1port.Text.ToString();
+            Settings.Default.comport0 = _SettingsCombobox[0].Text.ToString();
             Settings.Default.baudrate0 = materialComboBoxsensor1baud.SelectedIndex;
             Settings.Default.databit0 = materialComboBoxdatabit1.SelectedIndex;
             Settings.Default.parity0 = (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity1.SelectedItem.ToString());
             Settings.Default.stopbit0 = (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit1.SelectedItem.ToString());
 
-            Settings.Default.comport1 = materialComboBoxsensor2port.Text.ToString();
+            Settings.Default.comport1 = _SettingsCombobox[1].Text.ToString();
             Settings.Default.baudrate1 = materialComboBoxsensor2baud.SelectedIndex;
             Settings.Default.databit1 = materialComboBoxdatabit2.SelectedIndex;
             Settings.Default.parity1 = (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity2.SelectedItem.ToString());
             Settings.Default.stopbit1 = (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit2.SelectedItem.ToString());
 
-            Settings.Default.comport2 = materialComboBoxsensor3port.Text.ToString();
+            Settings.Default.comport2 = _SettingsCombobox[2].Text.ToString();
             Settings.Default.baudrate2 = materialComboBoxsensor3baud.SelectedIndex;
             Settings.Default.databit2 = materialComboBoxdatabit3.SelectedIndex;
             Settings.Default.parity2 = (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity3.SelectedItem.ToString());
             Settings.Default.stopbit2 = (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit3.SelectedItem.ToString());
 
-            Settings.Default.comport3 = materialComboBoxsensor4port.Text.ToString();
+            Settings.Default.comport3 = _SettingsCombobox[3].Text.ToString();
             Settings.Default.baudrate3 = materialComboBoxsensor4baud.SelectedIndex;
             Settings.Default.databit3 = materialComboBoxdatabit4.SelectedIndex;
             Settings.Default.parity3 = (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity4.SelectedItem.ToString());
@@ -1258,28 +852,28 @@ namespace MaterialDashSkin
             if (myDebug)
             {
                 // Debug sensor 1 settings
-                Debug.WriteLineIf(myDebug, "set port1 :" + materialComboBoxsensor1port.Text);
+                Debug.WriteLineIf(myDebug, "set port1 :" + _SettingsCombobox[0].Text);
                 Debug.WriteLineIf(myDebug, "set databit1 :" + materialComboBoxdatabit1.SelectedIndex + " value : " + materialComboBoxdatabit1.Text);
                 Debug.WriteLineIf(myDebug, "set baudrate1 :" + materialComboBoxsensor1baud.SelectedIndex + " value : " + materialComboBoxsensor1baud.Text);
                 Debug.WriteLineIf(myDebug, "set Parity1 :" + (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity1.SelectedItem.ToString()));
                 Debug.WriteLineIf(myDebug, "set StopBits1 :" + (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit1.SelectedItem.ToString()));
 
                 // Debug sensor 2 settings
-                Debug.WriteLineIf(myDebug, "set port2 :" + materialComboBoxsensor2port.Text);
+                Debug.WriteLineIf(myDebug, "set port2 :" + _SettingsCombobox[1].Text);
                 Debug.WriteLineIf(myDebug, "set databit2 :" + materialComboBoxdatabit2.SelectedIndex + " value : " + materialComboBoxdatabit2.Text);
                 Debug.WriteLineIf(myDebug, "set baudrate2 :" + materialComboBoxsensor2baud.SelectedIndex + " value : " + materialComboBoxsensor2baud.Text);
                 Debug.WriteLineIf(myDebug, "set Parity2 :" + (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity2.SelectedItem.ToString()));
                 Debug.WriteLineIf(myDebug, "set StopBits2 :" + (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit2.SelectedItem.ToString()));
 
                 // Debug sensor 3 settings
-                Debug.WriteLineIf(myDebug, "set port3 :" + materialComboBoxsensor3port.Text);
+                Debug.WriteLineIf(myDebug, "set port3 :" + _SettingsCombobox[2].Text);
                 Debug.WriteLineIf(myDebug, "set databit3 :" + materialComboBoxdatabit3.SelectedIndex + " value : " + materialComboBoxdatabit3.Text);
                 Debug.WriteLineIf(myDebug, "set baudrate3 :" + materialComboBoxsensor3baud.SelectedIndex + " value : " + materialComboBoxsensor3baud.Text);
                 Debug.WriteLineIf(myDebug, "set Parity3 :" + (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity3.SelectedItem.ToString()));
                 Debug.WriteLineIf(myDebug, "set StopBits3 :" + (StopBits)Enum.Parse(typeof(StopBits), materialComboBoxstopbit3.SelectedItem.ToString()));
 
                 // Debug sensor 4 settings
-                Debug.WriteLineIf(myDebug, "set port4 :" + materialComboBoxsensor4port.Text);
+                Debug.WriteLineIf(myDebug, "set port4 :" + _SettingsCombobox[3].Text);
                 Debug.WriteLineIf(myDebug, "set databit4 :" + materialComboBoxdatabit4.SelectedIndex + " value : " + materialComboBoxdatabit4.Text);
                 Debug.WriteLineIf(myDebug, "set baudrate4 :" + materialComboBoxsensor4baud.SelectedIndex + " value : " + materialComboBoxsensor4baud.Text);
                 Debug.WriteLineIf(myDebug, "set Parity4 :" + (Parity)Enum.Parse(typeof(Parity), materialComboBoxparity4.SelectedItem.ToString()));
@@ -1297,5 +891,6 @@ namespace MaterialDashSkin
 
             SettingComPorts();
         }
+
     }
 }
