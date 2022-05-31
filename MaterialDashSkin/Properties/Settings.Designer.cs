@@ -332,5 +332,17 @@ namespace MaterialDashSkin.Properties {
                 this["test2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int serie {
+            get {
+                return ((int)(this["serie"]));
+            }
+            set {
+                this["serie"] = value;
+            }
+        }
     }
 }

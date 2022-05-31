@@ -1,7 +1,4 @@
-﻿using LiveCharts;
-using LiveCharts.Configurations;
-using LiveCharts.Wpf;
-using MaterialDashSkin.Properties;
+﻿using MaterialDashSkin.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
@@ -153,6 +150,8 @@ namespace MaterialDashSkin
             materialComboBoxdatabit4.SelectedIndex = Settings.Default.databit3;
             materialComboBoxparity4.SelectedIndex = (int)(Parity)Enum.Parse(typeof(Parity), Settings.Default.parity3.ToString());
             materialComboBoxstopbit4.SelectedIndex = (int)(StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit3.ToString());
+            
+            mySeries = Settings.Default.serie;
 
             // Setting com port
             if (!SettingComPorts())
@@ -248,6 +247,7 @@ namespace MaterialDashSkin
                 if (dreader2.Read())
                 {
                     mySeriesCount = dreader2.GetValue(0).ToString();
+                    mySeries = Int32.Parse(mySeriesCount);
                     Debug.WriteLineIf(myDebug, "count series : " + mySeriesCount);
 
                 }
@@ -258,16 +258,24 @@ namespace MaterialDashSkin
 
                 conn.Close();
             }
+
             
 
             // Clear combobox serie
-            materialComboBox1.Items.Clear();
+            materialComboBox1.Invoke(new MethodInvoker(delegate
+            {
+                materialComboBox1.Items.Clear();
+            }));
 
             // Populate serial port combobox
             for (int i= 0; i < Int32.Parse(mySeriesCount); i++)
                 {
-                materialComboBox1.Items.Add(i);
-                }
+                //materialComboBox1.Items.Add(i);
+                materialComboBox1.Invoke(new MethodInvoker(delegate
+                {
+                    materialComboBox1.Items.Add(i);
+                }));
+            }
 
         }
 
@@ -408,6 +416,7 @@ namespace MaterialDashSkin
                 if (mySerialPorts[i].IsOpen) { mySerialPorts[i].Close(); }
             }
 
+            //Settings.Default.serie = Int32.Parse(mySeriesCount);
 
         }
 
@@ -538,14 +547,28 @@ namespace MaterialDashSkin
             chart1.ChartAreas[0].AxisY.MajorGrid.Interval = myMajorGridInterval;
             chart1.ChartAreas[0].AxisX.LabelStyle.Format = "ss.fff";
             chart1.Series[0].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart1.Series[1].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart1.Series[2].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart1.Series[3].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart1.Series[0].LegendText = "Sensor 1";
+            chart1.Series[1].LegendText = "Sensor 2";
+            chart1.Series[2].LegendText = "Sensor 3";
+            chart1.Series[3].LegendText = "Sensor 4";
+
 
             chart2.ChartAreas[0].AxisY.Minimum = 0;
             chart2.ChartAreas[0].AxisY.Maximum = 500;
             chart2.ChartAreas[0].AxisX.MajorGrid.Interval = 1;
             chart2.ChartAreas[0].AxisY.MajorGrid.Interval = myMajorGridInterval;
-            chart2.ChartAreas[0].AxisX.LabelStyle.Format = "ss.fff";
+            chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm:ss.fff";
             chart2.Series[0].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
-
+            chart2.Series[1].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart2.Series[2].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart2.Series[3].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+            chart2.Series[0].LegendText = "Sensor 1";
+            chart2.Series[1].LegendText = "Sensor 2";
+            chart2.Series[2].LegendText = "Sensor 3";
+            chart2.Series[3].LegendText = "Sensor 4";
             // Special tricks to initialise graph
 
             for (int i = 0; i < myMajorGridInterval; i++)
@@ -561,6 +584,7 @@ namespace MaterialDashSkin
                 }
 
             }
+            
 
             // Debug chart
             Debug.WriteLineIf(myDebug, "chart1 count : " + chart1.Series.Count());
@@ -758,6 +782,8 @@ namespace MaterialDashSkin
                 conn.Open();
             }
 
+            
+
             int minArrayLength = Math.Min(mySensorData1.Count, Math.Min(mySensorData2.Count, Math.Min(mySensorData3.Count, mySensorData4.Count)));
 
             Debug.WriteLineIf(myDebug, minArrayLength);
@@ -825,6 +851,7 @@ namespace MaterialDashSkin
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
            
+                // Delete all data on table
                 string sqlStatement = "DELETE FROM myTable";
 
                 try
@@ -843,7 +870,20 @@ namespace MaterialDashSkin
 
                     conn.Close();
                 }
-            
+
+            // Re count serie in DB
+            countSeries();
+
+            // Reset graph in dataview
+            foreach (var series in chart2.Series)
+            {
+
+                MethodInvoker action = delegate { series.Points.Clear(); };
+                chart2.Invoke(action);
+                
+            }
+
+
         }
 
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
@@ -949,6 +989,11 @@ namespace MaterialDashSkin
 
         private void materialComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            foreach (var series in chart2.Series)
+            {
+                series.Points.Clear();
+            }
+
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();
@@ -960,10 +1005,9 @@ namespace MaterialDashSkin
 
             string sql, output = "";
 
-            sql = "Select id, sensor1, sensor2, sensor3, sensor4, datetime, serie from myTable WHERE "+
-                  "serie ="+
-                  mySeriesCount
-                  ;
+            sql = "Select id, sensor1, sensor2, sensor3, sensor4, datetime, serie from myTable WHERE serie=" + materialComboBox1.Text;
+
+            Debug.WriteLineIf(myDebug,"SQL :" + sql);
 
             cmd = new SqlCommand(sql, conn);
 
@@ -983,52 +1027,30 @@ namespace MaterialDashSkin
                                   "TIME : " + dreader.GetValue(5) + " - " +
                                   "SERIE : " + dreader.GetValue(6) +
                                   "\n";
+                
+                chart2.Series[0].Points.AddXY(dreader.GetValue(5), yValue: dreader.GetValue(1));
+                chart2.Series[1].Points.AddXY(dreader.GetValue(5), yValue: dreader.GetValue(2));
+                chart2.Series[2].Points.AddXY(dreader.GetValue(5), yValue: dreader.GetValue(3));
+                chart2.Series[3].Points.AddXY(dreader.GetValue(5), yValue: dreader.GetValue(4));
+
                 x++;
             }
+            
+            dataGridView1.DataSource = dreader;
+
+            chart2.Update();
 
             // to display the output
-            //Debug.WriteLineIf(myDebug, output);
+            Debug.WriteLineIf(myDebug, "OUTPUT : " + output);
+            DateTime now = DateTime.Now;
+            Debug.WriteLineIf(myDebug, "now : " + now);
 
             // to close all the objects
             dreader.Close();
             cmd.Dispose();
 
-            DateTime now = DateTime.Now;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (mySerialPorts[i].IsOpen)
-                {
-                    try
-                    {
-                        _Labels[i].Text = mySerialData[i];
-                        if (myPlayPause)
-                        {
-                            chart2.Series[i].Points.RemoveAt(0);
-                            chart2.Series[i].Points.AddXY(now, yValue: mySerialData[i].Replace(",", "."));
-                            chart2.Series[i].IsXValueIndexed = true;
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString(), "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    if (myPlayPause)
-                    {
-                        chart1.Series[i].Points.RemoveAt(0);
-                        chart1.Series[i].Points.AddXY(now, "");
-                        chart1.Series[i].IsXValueIndexed = true;
-                    }
-                }
-            }
-
-
-            chart1.ResetAutoValues();
+            
+            chart2.ResetAutoValues();
         }
     }
 }
