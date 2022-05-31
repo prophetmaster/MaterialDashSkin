@@ -32,14 +32,18 @@ namespace MaterialDashSkin
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -61,15 +65,9 @@ namespace MaterialDashSkin
             this.materialSwitch1 = new MaterialSkin.Controls.MaterialSwitch();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.series = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sensor1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sensor2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sensor3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sensor4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.datetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
@@ -116,12 +114,15 @@ namespace MaterialDashSkin
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
+            this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            this.materialComboBox1 = new MaterialSkin.Controls.MaterialComboBox();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -272,80 +273,80 @@ namespace MaterialDashSkin
             // chart1
             // 
             this.chart1.BorderSkin.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX2.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX2.TitleForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.MajorGrid.Enabled = false;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY2.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderColor = System.Drawing.Color.DarkGray;
-            chartArea2.CursorX.Interval = 10D;
-            chartArea2.CursorX.IntervalOffset = 1D;
-            chartArea2.CursorX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea2.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisX.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisY.MajorGrid.Enabled = false;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisY.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderColor = System.Drawing.Color.DarkGray;
+            chartArea4.CursorX.Interval = 10D;
+            chartArea4.CursorX.IntervalOffset = 1D;
+            chartArea4.CursorX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea4.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.tableLayoutPanel1.SetColumnSpan(this.chart1, 4);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.IsSoftShadows = false;
-            legend2.Alignment = System.Drawing.StringAlignment.Center;
-            legend2.AutoFitMinFontSize = 12;
-            legend2.BackColor = System.Drawing.Color.Transparent;
-            legend2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
-            legend2.DockedToChartArea = "ChartArea1";
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            legend2.ForeColor = System.Drawing.Color.DarkGray;
-            legend2.IsDockedInsideChartArea = false;
-            legend2.IsTextAutoFit = false;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend4.Alignment = System.Drawing.StringAlignment.Center;
+            legend4.AutoFitMinFontSize = 12;
+            legend4.BackColor = System.Drawing.Color.Transparent;
+            legend4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            legend4.DockedToChartArea = "ChartArea1";
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            legend4.ForeColor = System.Drawing.Color.DarkGray;
+            legend4.IsDockedInsideChartArea = false;
+            legend4.IsTextAutoFit = false;
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(3, 191);
             this.chart1.Name = "chart1";
             this.tableLayoutPanel1.SetRowSpan(this.chart1, 4);
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Red;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Color = System.Drawing.Color.Lime;
-            series6.Legend = "Legend1";
-            series6.Name = "Series2";
-            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Color = System.Drawing.Color.Blue;
-            series7.Legend = "Legend1";
-            series7.Name = "Series3";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Color = System.Drawing.Color.Yellow;
-            series8.Legend = "Legend1";
-            series8.Name = "Series4";
-            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.chart1.Series.Add(series5);
-            this.chart1.Series.Add(series6);
-            this.chart1.Series.Add(series7);
-            this.chart1.Series.Add(series8);
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series13.Color = System.Drawing.Color.Red;
+            series13.Legend = "Legend1";
+            series13.Name = "Series1";
+            series13.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series14.Color = System.Drawing.Color.Lime;
+            series14.Legend = "Legend1";
+            series14.Name = "Series2";
+            series14.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series15.Color = System.Drawing.Color.Blue;
+            series15.Legend = "Legend1";
+            series15.Name = "Series3";
+            series15.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Color = System.Drawing.Color.Yellow;
+            series16.Legend = "Legend1";
+            series16.Name = "Series4";
+            series16.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series13);
+            this.chart1.Series.Add(series14);
+            this.chart1.Series.Add(series15);
+            this.chart1.Series.Add(series16);
             this.chart1.Size = new System.Drawing.Size(760, 372);
             this.chart1.TabIndex = 12;
             this.chart1.Text = "chart1";
@@ -495,18 +496,104 @@ namespace MaterialDashSkin
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.materialButton3, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.chart2, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.dataGridView1, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.materialButton3, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.materialButton4, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.materialComboBox1, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(766, 618);
-            this.tableLayoutPanel3.TabIndex = 2;
+            this.tableLayoutPanel3.TabIndex = 14;
+            // 
+            // chart2
+            // 
+            this.chart2.BorderSkin.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisX.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MajorGrid.Enabled = false;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MinorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY2.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderColor = System.Drawing.Color.DarkGray;
+            chartArea3.CursorX.Interval = 10D;
+            chartArea3.CursorX.IntervalOffset = 1D;
+            chartArea3.CursorX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea3.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea3.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea3);
+            this.tableLayoutPanel3.SetColumnSpan(this.chart2, 4);
+            this.chart2.IsSoftShadows = false;
+            legend3.Alignment = System.Drawing.StringAlignment.Center;
+            legend3.AutoFitMinFontSize = 12;
+            legend3.BackColor = System.Drawing.Color.Transparent;
+            legend3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            legend3.DockedToChartArea = "ChartArea1";
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            legend3.ForeColor = System.Drawing.Color.DarkGray;
+            legend3.IsDockedInsideChartArea = false;
+            legend3.IsTextAutoFit = false;
+            legend3.Name = "Legend1";
+            this.chart2.Legends.Add(legend3);
+            this.chart2.Location = new System.Drawing.Point(3, 63);
+            this.chart2.Name = "chart2";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Color = System.Drawing.Color.Red;
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.Lime;
+            series10.Legend = "Legend1";
+            series10.Name = "Series2";
+            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Color = System.Drawing.Color.Blue;
+            series11.Legend = "Legend1";
+            series11.Name = "Series3";
+            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Color = System.Drawing.Color.Yellow;
+            series12.Legend = "Legend1";
+            series12.Name = "Series4";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart2.Series.Add(series9);
+            this.chart2.Series.Add(series10);
+            this.chart2.Series.Add(series11);
+            this.chart2.Series.Add(series12);
+            this.chart2.Size = new System.Drawing.Size(760, 273);
+            this.chart2.TabIndex = 13;
+            this.chart2.Text = "chart2";
             // 
             // materialButton3
             // 
@@ -515,106 +602,28 @@ namespace MaterialDashSkin
             this.materialButton3.Depth = 0;
             this.materialButton3.HighEmphasis = true;
             this.materialButton3.Icon = null;
-            this.materialButton3.Location = new System.Drawing.Point(4, 6);
+            this.materialButton3.Location = new System.Drawing.Point(195, 6);
             this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton3.Name = "materialButton3";
             this.materialButton3.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButton3.Size = new System.Drawing.Size(100, 28);
-            this.materialButton3.TabIndex = 0;
-            this.materialButton3.Text = "Load data";
+            this.materialButton3.Size = new System.Drawing.Size(64, 36);
+            this.materialButton3.TabIndex = 1;
+            this.materialButton3.Text = "Load";
             this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButton3.UseAccentColor = false;
             this.materialButton3.UseVisualStyleBackColor = true;
-            this.materialButton3.Click += new System.EventHandler(this.materialButton3_Click);
+            this.materialButton3.Click += new System.EventHandler(this.materialButton3_Click_1);
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.DarkGray;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.series,
-            this.sensor1,
-            this.sensor2,
-            this.sensor3,
-            this.sensor4,
-            this.datetime});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            this.tableLayoutPanel3.SetColumnSpan(this.dataGridView1, 4);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 43);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 342);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(760, 572);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dataGridView1_Scroll);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // series
-            // 
-            this.series.DataPropertyName = "serie";
-            this.series.HeaderText = "series";
-            this.series.Name = "series";
-            this.series.ReadOnly = true;
-            // 
-            // sensor1
-            // 
-            this.sensor1.DataPropertyName = "sensor1";
-            this.sensor1.HeaderText = "Sensor 1";
-            this.sensor1.Name = "sensor1";
-            this.sensor1.ReadOnly = true;
-            // 
-            // sensor2
-            // 
-            this.sensor2.DataPropertyName = "sensor2";
-            this.sensor2.HeaderText = "Sensor 2";
-            this.sensor2.Name = "sensor2";
-            this.sensor2.ReadOnly = true;
-            // 
-            // sensor3
-            // 
-            this.sensor3.DataPropertyName = "sensor3";
-            this.sensor3.HeaderText = "Sensor 3";
-            this.sensor3.Name = "sensor3";
-            this.sensor3.ReadOnly = true;
-            // 
-            // sensor4
-            // 
-            this.sensor4.DataPropertyName = "sensor4";
-            this.sensor4.HeaderText = "Sensor 4";
-            this.sensor4.Name = "sensor4";
-            this.sensor4.ReadOnly = true;
-            // 
-            // datetime
-            // 
-            this.datetime.DataPropertyName = "datetime";
-            this.datetime.HeaderText = "Time";
-            this.datetime.Name = "datetime";
-            this.datetime.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(760, 273);
+            this.dataGridView1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -1324,7 +1333,7 @@ namespace MaterialDashSkin
             "6",
             "7",
             "8"});
-            this.materialComboBoxdatabit4.Location = new System.Drawing.Point(384, 210);
+            this.materialComboBoxdatabit4.Location = new System.Drawing.Point(384, 209);
             this.materialComboBoxdatabit4.MaxDropDownItems = 4;
             this.materialComboBoxdatabit4.MouseState = MaterialSkin.MouseState.OUT;
             this.materialComboBoxdatabit4.Name = "materialComboBoxdatabit4";
@@ -1607,6 +1616,50 @@ namespace MaterialDashSkin
             this.backgroundWorker4.WorkerSupportsCancellation = true;
             this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
             // 
+            // materialButton4
+            // 
+            this.materialButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton4.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButton4.Depth = 0;
+            this.materialButton4.HighEmphasis = true;
+            this.materialButton4.Icon = null;
+            this.materialButton4.Location = new System.Drawing.Point(577, 6);
+            this.materialButton4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton4.Name = "materialButton4";
+            this.materialButton4.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButton4.Size = new System.Drawing.Size(144, 36);
+            this.materialButton4.TabIndex = 14;
+            this.materialButton4.Text = "delete all data";
+            this.materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton4.UseAccentColor = false;
+            this.materialButton4.UseVisualStyleBackColor = true;
+            this.materialButton4.Click += new System.EventHandler(this.materialButton4_Click_1);
+            // 
+            // materialComboBox1
+            // 
+            this.materialComboBox1.AutoResize = false;
+            this.materialComboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialComboBox1.Depth = 0;
+            this.materialComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.materialComboBox1.DropDownHeight = 174;
+            this.materialComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.materialComboBox1.DropDownWidth = 121;
+            this.materialComboBox1.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialComboBox1.FormattingEnabled = true;
+            this.materialComboBox1.Hint = "serie";
+            this.materialComboBox1.IntegralHeight = false;
+            this.materialComboBox1.ItemHeight = 43;
+            this.materialComboBox1.Location = new System.Drawing.Point(3, 3);
+            this.materialComboBox1.MaxDropDownItems = 4;
+            this.materialComboBox1.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialComboBox1.Name = "materialComboBox1";
+            this.materialComboBox1.Size = new System.Drawing.Size(121, 49);
+            this.materialComboBox1.StartIndex = 0;
+            this.materialComboBox1.TabIndex = 15;
+            this.materialComboBox1.SelectedIndexChanged += new System.EventHandler(this.materialComboBox1_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1635,6 +1688,7 @@ namespace MaterialDashSkin
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1709,16 +1763,12 @@ namespace MaterialDashSkin
         private MaterialSkin.Controls.MaterialTextBox materialTextBoxDatabaseLogin;
         private MaterialSkin.Controls.MaterialLabel materialLabel9;
         private MaterialSkin.Controls.MaterialTextBox materialTextBoxDatabasePort;
-        private MaterialSkin.Controls.MaterialButton materialButton3;
         private MaterialSkin.Controls.MaterialButton materialButton1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn series;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sensor1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sensor2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sensor3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sensor4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datetime;
+        private DataGridView dataGridView1;
+        private MaterialSkin.Controls.MaterialButton materialButton3;
+        private TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialComboBox materialComboBox1;
     }
 }

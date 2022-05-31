@@ -41,7 +41,7 @@ namespace MaterialDashSkin
 
         // Graph
         int GridlinesOffset = 0;
-        
+
         // Baudrate array
         int[] MyBaudrate = { 150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400 };
         // Databit array
@@ -60,19 +60,16 @@ namespace MaterialDashSkin
         Label[] _Labels = new Label[4];
         ComboBox[] _SettingsCombobox = new ComboBox[4];
         Button[] _buttonPorts = new Button[4];
-        String[] mySerialData = new String[] {"","","",""};
+        String[] mySerialData = new String[] { "", "", "", "" };
         Settings[] _SettingsComport = new Settings[4];
 
         // Array of serials Ports
         List<SerialPort> mySerialPorts = new List<SerialPort>();
-
+        private string mySeriesCount;
 
         public MainForm()
         {
             InitializeComponent();
-
-            
-
 
             this.FormClosed += MainForm_FormClosed;
 
@@ -105,8 +102,6 @@ namespace MaterialDashSkin
             _buttonPorts[2] = this.materialButtonsensor3;
             _buttonPorts[3] = this.materialButtonsensor4;
 
-            //_SettingsComport[0] = Settings.Default.comport0.ToString();
-
             // Set text from settings
 
             Debug.WriteLineIf(myDebug, "get baudrate0 :" + Settings.Default.baudrate0);
@@ -132,7 +127,7 @@ namespace MaterialDashSkin
             Debug.WriteLineIf(myDebug, "get databit3 :" + Settings.Default.databit3.ToString() + " value : " + materialComboBoxdatabit4.FindString(Settings.Default.databit3.ToString()));
             Debug.WriteLineIf(myDebug, "get parity3 :" + (Parity)Enum.Parse(typeof(Parity), Settings.Default.parity3.ToString()));
             Debug.WriteLineIf(myDebug, "get stopbit3 :" + (StopBits)Enum.Parse(typeof(StopBits), Settings.Default.stopbit3.ToString()));
-            
+
 
             // Re apply saved settings
             materialComboBoxsensor1baud.SelectedIndex = Settings.Default.baudrate0;
@@ -166,7 +161,16 @@ namespace MaterialDashSkin
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            readAllSQLData();
 
+            // count series in SQL database
+            countSeries();
+
+
+        }
+
+        private void readAllSQLData()
+        {
             // Re apply sql server settings
             constr = @"Data Source=";
             constr += Settings.Default.databaseUrl;
@@ -224,7 +228,46 @@ namespace MaterialDashSkin
 
             // to close the connection
             //conn.Close();
+        }
+        private void countSeries()
+        {
+            string sqlStatement = "SELECT COUNT(DISTINCT serie) FROM myTable";
 
+            try
+            {
+                SqlDataReader dreader2;
+
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                SqlCommand cmd2 = new SqlCommand(sqlStatement, conn);
+                //cmd2.ExecuteNonQuery();
+                dreader2 = cmd2.ExecuteReader();
+                if (dreader2.Read())
+                {
+                    mySeriesCount = dreader2.GetValue(0).ToString();
+                    Debug.WriteLineIf(myDebug, "count series : " + mySeriesCount);
+
+                }
+                cmd2.Dispose();
+            }
+            finally
+            {
+
+                conn.Close();
+            }
+            
+
+            // Clear combobox serie
+            materialComboBox1.Items.Clear();
+
+            // Populate serial port combobox
+            for (int i= 0; i < Int32.Parse(mySeriesCount); i++)
+                {
+                materialComboBox1.Items.Add(i);
+                }
 
         }
 
@@ -360,11 +403,11 @@ namespace MaterialDashSkin
             }
 
             // Close all com port
-            for (int i = 0; i< mySerialPorts.Count-1; i++)
+            for (int i = 0; i < mySerialPorts.Count - 1; i++)
             {
                 if (mySerialPorts[i].IsOpen) { mySerialPorts[i].Close(); }
             }
-            
+
 
         }
 
@@ -443,9 +486,8 @@ namespace MaterialDashSkin
         private void Form2_Load(object sender, EventArgs e)
         {
 
-            
-
-            for (int i=0; i <4;i++) {
+            for (int i = 0; i < 4; i++)
+            {
 
                 // Populate listbox with serial port name
                 string[] ports = SerialPort.GetPortNames();
@@ -462,7 +504,7 @@ namespace MaterialDashSkin
                 // If com port > 0 find serial port com in saved setting and re apply
                 if (_SettingsCombobox[i].Items.Count > 0)
                 {
-                    int index=0;
+                    int index = 0;
 
                     switch (i)
                     {
@@ -479,7 +521,7 @@ namespace MaterialDashSkin
                             index = _SettingsCombobox[i].FindString(Settings.Default.comport3);
                             break;
                     }
-                    
+
                     _SettingsCombobox[i].SelectedIndex = index;
                 }
                 else
@@ -497,6 +539,13 @@ namespace MaterialDashSkin
             chart1.ChartAreas[0].AxisX.LabelStyle.Format = "ss.fff";
             chart1.Series[0].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
 
+            chart2.ChartAreas[0].AxisY.Minimum = 0;
+            chart2.ChartAreas[0].AxisY.Maximum = 500;
+            chart2.ChartAreas[0].AxisX.MajorGrid.Interval = 1;
+            chart2.ChartAreas[0].AxisY.MajorGrid.Interval = myMajorGridInterval;
+            chart2.ChartAreas[0].AxisX.LabelStyle.Format = "ss.fff";
+            chart2.Series[0].XValueType = ChartValueType.DateTime;      // this sets the type of the X-Axis values
+
             // Special tricks to initialise graph
 
             for (int i = 0; i < myMajorGridInterval; i++)
@@ -505,11 +554,12 @@ namespace MaterialDashSkin
                 DateTime now = DateTime.Now;
 
                 // Populate graph with blank data
-                for(int j=0; j<4; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     chart1.Series[j].Points.AddXY("", "");
+                    chart2.Series[j].Points.AddXY("", "");
                 }
-                
+
             }
 
             // Debug chart
@@ -536,12 +586,13 @@ namespace MaterialDashSkin
                     try
                     {
                         _Labels[i].Text = mySerialData[i];
-                        if (myPlayPause) {
+                        if (myPlayPause)
+                        {
                             chart1.Series[i].Points.RemoveAt(0);
                             chart1.Series[i].Points.AddXY(now, yValue: mySerialData[i].Replace(",", "."));
                             chart1.Series[i].IsXValueIndexed = true;
                         }
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -559,7 +610,7 @@ namespace MaterialDashSkin
                     }
                 }
             }
-            
+
 
             chart1.ResetAutoValues();
 
@@ -578,7 +629,8 @@ namespace MaterialDashSkin
             {
                 materialButtongraphplaypause.Text = "PLAY";
                 myPlayPause = false;
-            } else
+            }
+            else
             {
                 materialButtongraphplaypause.Text = "PAUSE";
                 myPlayPause = true;
@@ -598,8 +650,8 @@ namespace MaterialDashSkin
                     _Labels[myNumber].Text = "";
 
                     //timer1.Stop();
-                   
-                    
+
+
                 }
                 catch (Exception ex)
                 {
@@ -629,109 +681,20 @@ namespace MaterialDashSkin
         private void materialButtonsensor2_Click(object sender, EventArgs e) { myOpenClosePort(sender, 1, e); }
         private void materialButtonsensor3_Click(object sender, EventArgs e) { myOpenClosePort(sender, 2, e); }
         private void materialButtonsensor4_Click(object sender, EventArgs e) { myOpenClosePort(sender, 3, e); }
-        
+
         private void materialSwitch1_CheckedChanged(object sender, EventArgs e)
         {
             if (materialSwitch1.Checked == true)
             {
-                
+                // Clear all data stored in the arrays
+                mySensorData1.Clear();
+                mySensorData2.Clear();
+                mySensorData3.Clear();
+                mySensorData4.Clear();
             }
             else
             {
-                
-
-                for (int i = 0; i < mySerialPorts.Count-1; i++)
-                {
-                    mySerialPorts[i].Close();
-                }
-
-
-                if (conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
-
-                int minArrayLength = Math.Min(mySensorData1.Count, Math.Min(mySensorData2.Count, Math.Min(mySensorData3.Count, mySensorData4.Count)));
-
-                Debug.WriteLineIf(myDebug, minArrayLength);
-
-                for (int i = 0; i < minArrayLength - 1; i++)
-                {
-                    if (conn.State == ConnectionState.Closed)
-                    {
-                        conn.Open();
-                    }
-
-
-
-                    SqlCommand cmd;
-
-                    SqlDataAdapter adap = new SqlDataAdapter();
-
-                    DateTime myDateTime = DateTime.Now;
-                    string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-
-                    string sql = "";
-                    
-                    sql = "INSERT INTO myTable (sensor1, sensor2, sensor3, sensor4, datetime, serie) values("
-                        + mySensorData1[i].ToString().Replace(",", ".")
-                        + ","
-                        + mySensorData2[i].ToString().Replace(",", ".")
-                        + ","
-                        + mySensorData3[i].ToString().Replace(",", ".")
-                        + ","
-                        + mySensorData4[i].ToString().Replace(",", ".")
-                        + ",'"
-                        + sqlFormattedDate
-                        + "',"
-                        + mySeries.ToString()
-                        + ")";
-
-                    Debug.WriteLineIf(myDebug, "sql : " + sql);
-
-                    cmd = new SqlCommand(sql, conn);
-
-                    adap.InsertCommand = new SqlCommand(sql, conn);
-                    adap.InsertCommand.ExecuteNonQuery();
-
-                    cmd.Dispose();
-                    conn.Close();
-
-
-
-
-
-
-                }
-                /*
-                var myList1 = mySensorData1;
-                myList1.RemoveRange(0, minArrayLength);
-                mySensorData1 = myList1;
-
-                var myList2 = mySensorData2;
-                myList2.RemoveRange(0, minArrayLength);
-                mySensorData1 = myList2;
-
-                var myList3 = mySensorData3;
-                myList3.RemoveRange(0, minArrayLength);
-                mySensorData1 = myList3;
-
-                var myList4 = mySensorData4;
-                myList4.RemoveRange(0, minArrayLength);
-                mySensorData1 = myList4;
-
-                int countArrayAfter = Math.Min(mySensorData1.Count, Math.Min(mySensorData2.Count, Math.Min(mySensorData3.Count, mySensorData4.Count)));
-
-                Debug.WriteLineIf(myDebug, countArrayAfter);
-                */
-
-                mySeries++;
-
-                for (int i = 0; i < mySerialPorts.Count - 1; i++)
-                {
-                    mySerialPorts[i].Open();
-                }
-            
+                backgroundWorker1.RunWorkerAsync();
             }
 
 
@@ -790,29 +753,105 @@ namespace MaterialDashSkin
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorker1.CancellationPending)
+            if (conn.State == ConnectionState.Closed)
             {
+                conn.Open();
             }
+
+            int minArrayLength = Math.Min(mySensorData1.Count, Math.Min(mySensorData2.Count, Math.Min(mySensorData3.Count, mySensorData4.Count)));
+
+            Debug.WriteLineIf(myDebug, minArrayLength);
+
+            for (int i = 0; i < minArrayLength - 1; i++)
+            {
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                SqlCommand cmd;
+                SqlDataAdapter adap = new SqlDataAdapter();
+
+                DateTime myDateTime = DateTime.Now;
+                string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+                string sql = "";
+
+                sql = "INSERT INTO myTable (sensor1, sensor2, sensor3, sensor4, datetime, serie) values("
+                    + mySensorData1[i].ToString().Replace(",", ".")
+                    + ","
+                    + mySensorData2[i].ToString().Replace(",", ".")
+                    + ","
+                    + mySensorData3[i].ToString().Replace(",", ".")
+                    + ","
+                    + mySensorData4[i].ToString().Replace(",", ".")
+                    + ",'"
+                    + sqlFormattedDate
+                    + "',"
+                    + mySeries.ToString()
+                    + ")";
+
+                Debug.WriteLineIf(myDebug, "sql : " + sql);
+
+                cmd = new SqlCommand(sql, conn);
+
+                adap.InsertCommand = new SqlCommand(sql, conn);
+                adap.InsertCommand.ExecuteNonQuery();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            // Remove stored data in array
+            var myList1 = mySensorData1;
+            myList1.RemoveRange(0, minArrayLength);
+
+            var myList2 = mySensorData2;
+            myList2.RemoveRange(0, minArrayLength);
+
+            var myList3 = mySensorData3;
+            myList3.RemoveRange(0, minArrayLength);
+
+            var myList4 = mySensorData4;
+            myList4.RemoveRange(0, minArrayLength);
+
+            // Increment series
+            mySeries++;
+            // count series in SQL database
+            countSeries();
+
         }
+
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorker2.CancellationPending)
-            {
-            }
+           
+                string sqlStatement = "DELETE FROM myTable";
+
+                try
+                {
+                    if (conn.State == ConnectionState.Closed)
+                    {
+                        conn.Open();
+                    }
+
+                    SqlCommand cmd = new SqlCommand(sqlStatement, conn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                finally
+                {
+
+                    conn.Close();
+                }
+            
         }
 
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorker3.CancellationPending)
-            {
-            }
         }
 
         private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorker4.CancellationPending)
-            {
-            }
         }
 
 
@@ -892,5 +931,104 @@ namespace MaterialDashSkin
             SettingComPorts();
         }
 
+
+        private void materialButton3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialButton4_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure to delete?", "Confirm", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                backgroundWorker2.RunWorkerAsync();
+            }
+        }
+
+        private void materialComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            SqlCommand cmd;
+
+            SqlDataReader dreader;
+
+            string sql, output = "";
+
+            sql = "Select id, sensor1, sensor2, sensor3, sensor4, datetime, serie from myTable WHERE "+
+                  "serie ="+
+                  mySeriesCount
+                  ;
+
+            cmd = new SqlCommand(sql, conn);
+
+            dreader = cmd.ExecuteReader();
+
+            int x = 0;
+            int myLimit = 100;
+
+            while (dreader.Read() && x <= myLimit)
+            {
+
+                output = output + "ID : " + dreader.GetValue(0) + " - " +
+                                  "SENSOR1 : " + dreader.GetValue(1) + " - " +
+                                  "SENSOR2 : " + dreader.GetValue(2) + " - " +
+                                  "SENSOR3 : " + dreader.GetValue(3) + " - " +
+                                  "SENSOR4 : " + dreader.GetValue(4) + " - " +
+                                  "TIME : " + dreader.GetValue(5) + " - " +
+                                  "SERIE : " + dreader.GetValue(6) +
+                                  "\n";
+                x++;
+            }
+
+            // to display the output
+            //Debug.WriteLineIf(myDebug, output);
+
+            // to close all the objects
+            dreader.Close();
+            cmd.Dispose();
+
+            DateTime now = DateTime.Now;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (mySerialPorts[i].IsOpen)
+                {
+                    try
+                    {
+                        _Labels[i].Text = mySerialData[i];
+                        if (myPlayPause)
+                        {
+                            chart2.Series[i].Points.RemoveAt(0);
+                            chart2.Series[i].Points.AddXY(now, yValue: mySerialData[i].Replace(",", "."));
+                            chart2.Series[i].IsXValueIndexed = true;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    if (myPlayPause)
+                    {
+                        chart1.Series[i].Points.RemoveAt(0);
+                        chart1.Series[i].Points.AddXY(now, "");
+                        chart1.Series[i].IsXValueIndexed = true;
+                    }
+                }
+            }
+
+
+            chart1.ResetAutoValues();
+        }
     }
 }
